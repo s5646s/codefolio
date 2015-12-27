@@ -30,6 +30,13 @@ public class SampleController {
     	return mv;
     }
 	
+	@RequestMapping(value="/sample/test.do")
+	public ModelAndView openBoardWrite() throws Exception{
+		ModelAndView mv = new ModelAndView("/sample/test");
+		
+		return mv;
+	}
+	
 	@RequestMapping(value="/sample/openBoardWrite.do")
 	public ModelAndView openBoardWrite(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/sample/boardWrite");
