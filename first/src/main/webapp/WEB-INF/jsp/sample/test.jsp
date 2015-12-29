@@ -53,32 +53,21 @@
     
     <script>
     
-    var titleList = new Array();
-    var dateList = new Array();
-    var mediaList = new Array();
-   	var contentList = new Array();
-    <c:forEach items="${timelineJson }" var="timeline">
-    	titleList.push("${timeline.title}");
-    	dateList.push("${timeline.date}");
-    	mediaList.push("${timeline.media_url}");
-    	contentList.push("${timeline.content}");
-	</c:forEach>
-	
-	
-	var dateMapList = new Array();
-	for(var i = 0 ; i<dateList.length;i++){
-		//yyyy-mm-dd hh:mm:ss
-		//document.write(dateList[i]);	
-		//var dateParse = dateList[i].split(/[-:. ]/);
-		//var dateParseList = new Map();
-		//dateParseList.push("year",dateParse[0]);
-		
+    
+    function dateParse(str){ //date parse
+		var dateList = new Array();
+    	var date = str.split(/[-:. ]/);
+    	dateList.push(date[0]);	//year
+    	dateList.push(date[1]);	//month
+    	dateList.push(date[2]);	//day
+    	dateList.push(date[3]);	//hour
+    	dateList.push(date[4]);	//minute
+    	dateList.push(date[5]);	//second
+    	
+    	return dateList;
 	}
 	
-	
-	
-	
-	
+    
     var additionalOptions = {
             start_at_end: true,
             default_bg_color: {r:70, g:0, b:0},
@@ -115,58 +104,28 @@
 		    "scale": "human",
 		    "events": [ 		
 				<c:forEach items="${timelineJson }" var="timeline">
-					titleList.push("${timeline.title}");
-					dateList.push("${timeline.date}");
-					mediaList.push("${timeline.media_url}");
-					contentList.push("${timeline.content}");
-				</c:forEach>
-		        {
+				
+				{
 		            "start_date": {
-		                "year":			"2015",
-		                "month":		"12",
-		                "day": 			"28",
-		                "hour": 		"8",
-		                "minute": 		"5",
-		                "second": 		"33",
+		                "year":			dateParse("${timeline.date}")[0],
+		                "month":		dateParse("${timeline.date}")[1],
+		                "day": 			dateParse("${timeline.date}")[2],
+		                "hour": 		dateParse("${timeline.date}")[3],
+		                "minute": 		dateParse("${timeline.date}")[4],
+		                "second": 		dateParse("${timeline.date}")[5],
 		                "millisecond": 	"",
 		                "format": 		""
 		            },
 		            "media": {
-		                "url": "http://d2campusfest.kr/2015/img/headerLogoD2Fest.png"
+		                "url": "${timeline.media_url}"
 		            },
 		            "text": {
 		            	
-		                "headline":titleList[0], 
-		                "text": contentList[0]
+		                "headline":"${timeline.title}", 
+		                "text": "${timeline.content}"
 		            }
 		        },
-		        {
-		            "start_date": {
-		                "year":			"2016",
-		                "month":		"1",
-		                "day": 			"1",
-		                "hour": 		"5",
-		                "minute": 		"34",
-		                "second": 		"33",
-		                "millisecond": 	"",
-		                "format": 		""
-		            },
-		            "end_date":{
-		            	"year":			"2016",
-		                "month":		"1",
-		                "day": 			"6",
-		                "hour": 		"8",
-		                "minute": 		"59",
-		                "second": 		"44",
-		                "millisecond": 	"",
-		                "format": 		"",
-		            },
-		            "text": {
-		                "headline": "Matter domination",
-		                "text": "At this time, the densities of non-relativistic matter (atomic nuclei) and relativistic radiation (photons) are equal. The Jeans length, which determines the smallest structures that can form (due to competition between gravitational attraction and pressure effects), begins to fall and perturbations, instead of being wiped out by free-streaming radiation, can begin to grow in amplitude.</p> <p>According to ΛCDM, at this stage, cold dark matter dominates, paving the way for gravitational collapse to amplify the tiny inhomogeneities left by cosmic inflation, making dense regions denser and rarefied regions more rarefied. However, because present theories as to the nature of dark matter are inconclusive, there is as yet no consensus as to its origin at earlier times, as currently exist for baryonic matter."
-		            },
-		            "unique_id": ""
-		        }
+				</c:forEach>
 		       
 		    ]
 		
