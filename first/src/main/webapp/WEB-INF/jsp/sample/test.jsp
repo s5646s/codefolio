@@ -1,9 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% String cp = request.getContextPath(); %>
+
 <%--ContextPath 선언 --%>
 <html>
 <head>
+
+
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,72 +44,138 @@
   </head>
   <body>
     
+    <div id="timeline"></div>
+    
 	
-
-     <div id="timeline"></div>
+		
+ 
     <!-- JavaScript-->
-  <script src="/WEB_INF/jsp/sample/cosmological.json"></script>
-  
+    
     <script>
+    
+    var titleList = new Array();
+    var dateList = new Array();
+    var mediaList = new Array();
+   	var contentList = new Array();
+    <c:forEach items="${timelineJson }" var="timeline">
+    	titleList.push("${timeline.title}");
+    	dateList.push("${timeline.date}");
+    	mediaList.push("${timeline.media_url}");
+    	contentList.push("${timeline.content}");
+	</c:forEach>
+	
+	
+	var dateMapList = new Array();
+	for(var i = 0 ; i<dateList.length;i++){
+		//yyyy-mm-dd hh:mm:ss
+		//document.write(dateList[i]);	
+		//var dateParse = dateList[i].split(/[-:. ]/);
+		//var dateParseList = new Map();
+		//dateParseList.push("year",dateParse[0]);
+		
+	}
+	
+	
+	
+	
+	
     var additionalOptions = {
             start_at_end: true,
-            default_bg_color: {r:0, g:0, b:0},
+            default_bg_color: {r:70, g:0, b:0},
             timenav_height: 250
           }
     
-     var first = {
-    		    "scale": "human",
-    		    "events": [
-    		        {
-    		            "start_date": {
-    		                "year":			"2015",
-    		                "month":		"12",
-    		                "day": 			"28",
-    		                "hour": 		"8",
-    		                "minute": 		"5",
-    		                "second": 		"",
-    		                "millisecond": 	"",
-    		                "format": 		""
-    		            },
-    		            "media": {
-    		                "caption": "Illustration of evolution of the universe from the Big Bang",
-    		                "credit": "Kaldari (Wikipedia)",
-    		                "url": "http://d2campusfest.kr/2015/img/headerLogoD2Fest.png"
-    		            },
-    		            "text": {
-    		                "headline": "The Code Folio",
-    		                "text": " Naver D2  드루아 "
-    		            }
-    		        },
-    		        {
-    		            "start_date": {
-    		                "year":			"2015",
-    		                "month":		"12",
-    		                "day": 			"28",
-    		                "hour": 		"8",
-    		                "minute": 		"5",
-    		                "second": 		"",
-    		                "millisecond": 	"",
-    		                "format": 		""
-    		            },
-    		            "text": {
-    		                "headline": "Matter domination",
-    		                "text": "<p>At this time, the densities of non-relativistic matter (atomic nuclei) and relativistic radiation (photons) are equal. The Jeans length, which determines the smallest structures that can form (due to competition between gravitational attraction and pressure effects), begins to fall and perturbations, instead of being wiped out by free-streaming radiation, can begin to grow in amplitude.</p> <p>According to ΛCDM, at this stage, cold dark matter dominates, paving the way for gravitational collapse to amplify the tiny inhomogeneities left by cosmic inflation, making dense regions denser and rarefied regions more rarefied. However, because present theories as to the nature of dark matter are inconclusive, there is as yet no consensus as to its origin at earlier times, as currently exist for baryonic matter.</p>"
-    		            },
-    		            "unique_id": ""
-    		        },
-    		       
-    		    ]
-    		}
-;
-   
-     // $.getJSON('cosmological.json', function(response){
-   // 	  first = response;
-  //  })
-   // alert(JSON.stringify(first));
-     // alert(json.property);
-      window.timeline = new TL.Timeline('timeline', first ,additionalOptions);
-    </script>
+    var timelineJson  = {
+ 			"eras":{ 
+				"start_date": {
+	                "year":			"2010",
+	                "month":		"1",
+	                "day": 			"1",
+	                "hour": 		"0",
+	                "minute": 		"0",
+	                "second": 		"0",
+	                "millisecond": 	"",
+	                "format": 		""
+	            },
+	            "end_date" :{
+	            	 "year":			"2020",
+		             "month":			"12",
+		             "day": 			"31",
+		             "hour": 			"11",
+		             "minute": 			"59",
+		             "second": 			"59",
+		             "millisecond": 	"",
+		             "format": 			""
+	            },
+	            "text": {
+	                "headline": "The Code Folio??"
+	            }
+				
+			},
+		    "scale": "human",
+		    "events": [ 		
+				<c:forEach items="${timelineJson }" var="timeline">
+					titleList.push("${timeline.title}");
+					dateList.push("${timeline.date}");
+					mediaList.push("${timeline.media_url}");
+					contentList.push("${timeline.content}");
+				</c:forEach>
+		        {
+		            "start_date": {
+		                "year":			"2015",
+		                "month":		"12",
+		                "day": 			"28",
+		                "hour": 		"8",
+		                "minute": 		"5",
+		                "second": 		"33",
+		                "millisecond": 	"",
+		                "format": 		""
+		            },
+		            "media": {
+		                "url": "http://d2campusfest.kr/2015/img/headerLogoD2Fest.png"
+		            },
+		            "text": {
+		            	
+		                "headline":titleList[0], 
+		                "text": contentList[0]
+		            }
+		        },
+		        {
+		            "start_date": {
+		                "year":			"2016",
+		                "month":		"1",
+		                "day": 			"1",
+		                "hour": 		"5",
+		                "minute": 		"34",
+		                "second": 		"33",
+		                "millisecond": 	"",
+		                "format": 		""
+		            },
+		            "end_date":{
+		            	"year":			"2016",
+		                "month":		"1",
+		                "day": 			"6",
+		                "hour": 		"8",
+		                "minute": 		"59",
+		                "second": 		"44",
+		                "millisecond": 	"",
+		                "format": 		"",
+		            },
+		            "text": {
+		                "headline": "Matter domination",
+		                "text": "At this time, the densities of non-relativistic matter (atomic nuclei) and relativistic radiation (photons) are equal. The Jeans length, which determines the smallest structures that can form (due to competition between gravitational attraction and pressure effects), begins to fall and perturbations, instead of being wiped out by free-streaming radiation, can begin to grow in amplitude.</p> <p>According to ΛCDM, at this stage, cold dark matter dominates, paving the way for gravitational collapse to amplify the tiny inhomogeneities left by cosmic inflation, making dense regions denser and rarefied regions more rarefied. However, because present theories as to the nature of dark matter are inconclusive, there is as yet no consensus as to its origin at earlier times, as currently exist for baryonic matter."
+		            },
+		            "unique_id": ""
+		        }
+		       
+		    ]
+		
+    };
+  
+      window.timeline = new TL.Timeline('timeline', timelineJson,additionalOptions);
+      </script>
+ 
+    
       
     <div class="container">
       <h2>Asterisk Glyph</h2>

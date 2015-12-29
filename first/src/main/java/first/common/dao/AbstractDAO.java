@@ -13,6 +13,8 @@ public class AbstractDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	//override to print log on console
+	
 	protected void printQueryId(String queryId) {
 		if(log.isDebugEnabled()){
 			log.debug("\t QueryId  \t:  " + queryId);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import first.common.common.CommandMap;
 import first.sample.service.SampleService;
 
@@ -31,8 +32,10 @@ public class SampleController {
     }
 	
 	@RequestMapping(value="/sample/test.do")
-	public ModelAndView openBoardWrite() throws Exception{
+	public ModelAndView openTimeline(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/sample/test");
+		List<Map<String,Object>> timelines = sampleService.selectBoardList(commandMap.getMap());
+		mv.addObject("timelineJson", timelines);
 		
 		return mv;
 	}
