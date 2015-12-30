@@ -15,6 +15,10 @@ public class SampleDAO extends AbstractDAO{
 		return (List<Map<String, Object>>)selectList("sample.selectBoardList", map);
 	}
 
+	public void insertFile(Map<String, Object> map) throws Exception{
+	    insert("sample.insertFile", map); 	//파일입력 
+	}
+	
 	public void insertBoard(Map<String, Object> map) throws Exception{
 		insert("sample.insertBoard", map);
 	}

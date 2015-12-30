@@ -100,6 +100,7 @@
 		            },
 		            "media": {
 		                "url": urlDefault("${timeline.media_url}")
+		                
 		            },
 		            "text": {
 		            	
@@ -113,8 +114,8 @@
 		
     };
     window.timeline = new TL.Timeline('timeline', timelineJson,additionalOptions);
-     
-      
+    
+   
       
       function dateParse(str){ //date parse
   		var dateList = new Array();
@@ -143,6 +144,20 @@
       	return content;
       
       }
+      
+      $(document).ready(function(){
+			
+			$("a[name='title']").on("click", function(e){ //제목 
+				e.preventDefault();
+				fn_openBoardDetail($(this));
+			});
+		});
+      function fn_openBoardDetail(obj){
+			var comSubmit = new ComSubmit();
+			comSubmit.setUrl("<c:url value='/sample/openBoardDetail.do' />");
+			comSubmit.addParam("IDX", obj.parent().find("#IDX").val());
+			comSubmit.submit();
+		}
       </script>
  
     
