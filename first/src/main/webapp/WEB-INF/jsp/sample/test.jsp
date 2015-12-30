@@ -1,29 +1,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <% String cp = request.getContextPath(); %>
 
 <%--ContextPath 선언 --%>
 <html>
 <head>
 
+<%@ include file="/WEB-INF/include/include-header.jspf" %>
 
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="<%=cp%>/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<title>TEST</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link title="timeline-styles" rel="stylesheet" href="//cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
-   <script src="http://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
-	<script src="<%=cp%>/resources/bootstrap/js/bootstrap.min.js"></script>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	<!-- timelineJS -->
+	<link title="timeline-styles" rel="stylesheet" href="//cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
     <script src="//cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
     <script type="text/javascript" src="https://cdn.knightlab.com/libs/timeline/latest/js/timeline-min.js"></script>
    
-	  <!-- CSS-->
+	 <!-- CSS-->
     <link rel="stylesheet" href="../css/timeline.css?v1">
     <!--FONT-->
     <link rel="stylesheet" href="../css/fonts/font.default.css?v1">
@@ -56,7 +49,11 @@
     var additionalOptions = {
             start_at_end: true,
             default_bg_color: {r:70, g:0, b:0},
-            timenav_height: 250
+            timenav_height_percentage : 40,
+            timenav_height_min : 100,
+            //timenav_mobile_height_percentage : 40
+            //track_events: 'zoom_in'
+            //hash_bookmark:true
           }
     
     var timelineJson  = {
