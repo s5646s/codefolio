@@ -13,6 +13,7 @@
 	</select>
 	
 	<insert id="insertBoard" parameterType="hashmap" useGeneratedKeys="true" keyProperty="IDX">
+    
 		<![CDATA[
 			INSERT INTO board
 			(
@@ -21,7 +22,8 @@
 			    content, 
 			    count,
 			    date, 
-			    user_id
+			    user_id,
+			    media_url
 			)
 			VALUES
 			(
@@ -29,13 +31,17 @@
 			    #{TITLE}, 
 			    #{CONTENTS}, 
 			    0, 
-			   "2015-12-26", 
-			    1
+			   	now(), 
+			    1,
+			    null
 			)
 		]]>
+	<selectKey keyProperty="board_id" resultType="Integer">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
 	</insert>
 	
-	<!-- file db query -->
+	<!-- file DB query -->
 	<insert id="insertFile" parameterType="hashmap" >
 	
     <![CDATA[
@@ -45,20 +51,36 @@
         	file_id,
             original_file_name,
             stored_file_name,
-            file_size,
+            file_size
             
         )
         VALUES
         (
+        	#{BOARD_ID},
         	NULL,
-        	#{FILE_ID}
             #{ORIGINAL_FILE_NAME},
             #{STORED_FILE_NAME},
-            #{FILE_SIZE},
+            #{FILE_SIZE}
         )
     ]]>
 	</insert>
 	
+	<!-- select file and board -->
+	<select id="selectFileList" parameterType="hashmap" resultType="hashmap">
+    <![CDATA[
+        SELECT
+            board_id,
+            original_file_name,
+            ROUND(file_size/1024,1) AS file_size
+        FROM
+            attached_file
+        WHERE
+            board_id = #{IDX}
+            AND del_gb = "N"
+    ]]>
+	</select>
+
+
 	<update id="updateHitCnt" parameterType="hashmap">
 		<![CDATA[
 			UPDATE board

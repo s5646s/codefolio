@@ -1,7 +1,9 @@
 package first.sample.controller;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +53,6 @@ public class SampleController {
 	@RequestMapping(value="/sample/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap ,HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/sample/openBoardList.do");
-		
 		sampleService.insertBoard(commandMap.getMap(),request);
 		
 		return mv;
@@ -62,7 +63,8 @@ public class SampleController {
 		ModelAndView mv = new ModelAndView("/sample/boardDetail");
 		
 		Map<String,Object> map = sampleService.selectBoardDetail(commandMap.getMap());
-		mv.addObject("map", map);
+		mv.addObject("map", map.get("map"));
+		mv.addObject("list", map.get("list"));
 		
 		return mv;
 	}

@@ -6,17 +6,22 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
- 
+import java.util.Map.Entry;
+
 import javax.servlet.http.HttpServletRequest;
- 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.mysql.jdbc.log.Log;
  
 @Component("fileUtils")
 public class FileUtils {
-    private static final String filePath = "C:\\dev\\file\\"; //파일이 저장될 위치 
-     
+    private static final String filePath = "/Users/kimgh6554/Documents/Dev/File/"; //파일이 저장될 위치 mac 
+    //private static final String filePath = "C:\\dev\\file\\"; //파일이 저장될 위치 window
+    Logger log = Logger.getLogger(this.getClass());
+	
     
     //파일의 이름을 재정의하여 저장 
     public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{
@@ -31,13 +36,17 @@ public class FileUtils {
         List<Map<String,Object>> list = new ArrayList<Map<String,Object>>(); //다중파일 전송을 위한 리스트  
         Map<String, Object> listMap = null; 
          
-        String fileidx = (String)map.get("board_id"); // map에서 생성되는 게시글의 번호 
-         
-        File file = new File(filePath);  
-        if(file.exists() == false){
-            file.mkdirs();				//지정된위치에 폴더가 없으면 폴더생성
-        }
-         
+        
+        
+        int board_id = (Integer)map.get("board_id");  // map에서 생성되는 게시글의 번호 
+        
+        
+        
+		File file = new File(filePath);
+		if (file.exists() == false) {
+			file.mkdirs(); // 지정된위치에 폴더가 없으면 폴더생성
+		}
+
         while(iterator.hasNext()){
             multipartFile = multipartHttpServletRequest.getFile(iterator.next());
             if(multipartFile.isEmpty() == false){
@@ -49,7 +58,7 @@ public class FileUtils {
                 multipartFile.transferTo(file); //파일저장
                  
                 listMap = new HashMap<String,Object>();
-                listMap.put("FILE_ID", fileidx);
+                listMap.put("BOARD_ID", board_id);
                 listMap.put("ORIGINAL_FILE_NAME", originalFileName);
                 listMap.put("STORED_FILE_NAME", storedFileName);
                 listMap.put("FILE_SIZE", multipartFile.getSize());
