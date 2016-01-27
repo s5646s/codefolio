@@ -21,11 +21,13 @@ public class SampleDAO extends AbstractDAO{
 	    insert("sample.insertFile", map); 	//파일입력 
 	}
 	
-	
-	
 	public void insertBoard(Map<String, Object> map) throws Exception{
 		insert("sample.insertBoard", map);
 	}
+	public void insertProject(Map<String, Object> map) throws Exception{
+		insert("sample.insertProject", map);
+	}
+	
 
 	public void updateHitCnt(Map<String, Object> map) throws Exception{
 		update("sample.updateHitCnt", map);

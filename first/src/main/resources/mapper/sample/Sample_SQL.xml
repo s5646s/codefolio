@@ -41,6 +41,8 @@
     </selectKey>
 	</insert>
 	
+	
+	
 	<!-- file DB query -->
 	<insert id="insertFile" parameterType="hashmap" >
 	
@@ -63,6 +65,33 @@
             #{FILE_SIZE}
         )
     ]]>
+	</insert>
+	
+		<insert id="insertProject" parameterType="hashmap" >
+    
+		<![CDATA[
+			INSERT INTO project
+			(
+				PRJ_IDX,
+			    TITLE,
+			    DATE, 
+			    COMMENT,
+			    LANG, 
+			    IMAGE_URL
+			)
+			VALUES
+			(
+				NULL, 
+			  #{projectName}, 
+			    now(), 
+			 #{comment},
+			   	'language example',
+			    'https://www.google.com/images/nav_logo242.png/'
+			)
+		]]>
+	<selectKey keyProperty="board_id" resultType="Integer">
+        SELECT LAST_INSERT_ID()
+    </selectKey>
 	</insert>
 	
 	<!-- select file and board -->
