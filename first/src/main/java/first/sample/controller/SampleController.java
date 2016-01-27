@@ -43,6 +43,28 @@ public class SampleController {
 		return mv;
 	}
 	
+	
+	
+	@RequestMapping(value="/sample/test2.do")
+	public ModelAndView openGit(CommandMap commandMap) throws Exception{
+		ModelAndView mv = new ModelAndView("/sample/test2");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/sample/test2_result.do")
+	public ModelAndView resultGit(CommandMap commandMap ,HttpServletRequest request) throws Exception{
+		ModelAndView mv = new ModelAndView("sample/test2_result");
+		//  log.debug("request : "+request.toString() + "\n" + commandMap.get("file").toString()+ "\n");
+		//sampleService.insertBoard(commandMap.getMap(),request);\
+		String result = "";
+		result += sampleService.gitStore(commandMap.getMap(),request);
+		log.debug("result = "+ result.toString() + "\n");
+		mv.addObject("fileList", result);
+		return mv;
+	}
+	
+	
 	@RequestMapping(value="/sample/openBoardWrite.do")
 	public ModelAndView openBoardWrite(CommandMap commandMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/sample/boardWrite");
@@ -53,6 +75,7 @@ public class SampleController {
 	@RequestMapping(value="/sample/insertBoard.do")
 	public ModelAndView insertBoard(CommandMap commandMap ,HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/sample/openBoardList.do");
+		  log.debug("request : "+request.toString() + "\n" + commandMap.get("file")+ "\n");
 		sampleService.insertBoard(commandMap.getMap(),request);
 		
 		return mv;
